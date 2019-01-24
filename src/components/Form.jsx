@@ -52,7 +52,7 @@ class Form extends Component {
           id={lang}
           name={lang}
         />
-        <label className="form-check-label mr-3" for={lang}>
+        <label className="form-check-label mr-3" htmlFor={lang}>
           {lang}
         </label>
       </div>
@@ -71,8 +71,6 @@ class Form extends Component {
                 className="form-control"
                 placeholder="Prefix"
                 id="firstname"
-                //                onChange={this.props.getInput}
-                ref={this.firstName}
               />
             </div>
             <div className="col-4">
@@ -82,8 +80,6 @@ class Form extends Component {
                 className="form-control"
                 placeholder="Your first name"
                 id="firstname"
-                //                onChange={this.props.getInput}
-                ref={this.firstName}
               />
             </div>
             <div className="col-5">
@@ -93,81 +89,67 @@ class Form extends Component {
                 className="form-control"
                 placeholder="Your last name"
                 id="lastname"
-                //                onChange={this.props.getInput}
-                ref={this.lastName}
               />
             </div>
           </div>
           <h4>Organisation</h4>
-          <label htmlFor="firstname">Organisation name</label>
+          <label htmlFor="organisation">Organisation name</label>
           <input
             type="text"
             className="form-control"
             placeholder="Organisation"
-            id="firstname"
-            //                onChange={this.props.getInput}
-            ref={this.firstName}
+            id="organisation"
           />
           <h4>Phone numbers</h4>
           <div className="row">
             <div className="col-4">
-              <label htmlFor="firstname">Mobile number *</label>
+              <label htmlFor="mobile-number">Mobile number *</label>
               <input
                 type="tel"
                 className="form-control"
                 placeholder="Mobile"
-                id="firstname"
-                //                onChange={this.props.getInput}
-                ref={this.firstName}
+                id="mobile-number"
               />
             </div>
             <div className="col-4">
-              <label htmlFor="firstname">Private number</label>
+              <label htmlFor="private-number">Private number</label>
               <input
                 type="tel"
                 className="form-control"
                 placeholder="Private"
-                id="firstname"
-                //                onChange={this.props.getInput}
-                ref={this.firstName}
+                id="private-number"
               />
             </div>
             <div className="col-4">
-              <label htmlFor="lastname">Business number</label>
+              <label htmlFor="business-number">Business number</label>
               <input
                 type="tel"
                 className="form-control"
                 placeholder="Business"
-                id="lastname"
-                //                onChange={this.props.getInput}
-                ref={this.lastName}
+                id="business-number"
               />
             </div>
           </div>
           <h4>E-mail</h4>
           <div className="row mt-3">
             <div className="col-6">
-              <label htmlFor="email">Private email</label>
+              <label htmlFor="private-email">Private email</label>
               <input
                 type="email"
                 className="form-control"
-                id="email"
+                id="private-email"
                 aria-describedby="emailHelp"
                 placeholder="private"
-                //              onChange={this.props.getInput}
-                ref={this.eMail}
               />
             </div>
             <div className="col-6">
-              <label htmlFor="email">Business email</label>
+              <label htmlFor="business-email">Business email</label>
               <input
                 type="email"
                 className="form-control"
-                id="email"
+                id="business-email"
                 aria-describedby="emailHelp"
                 placeholder="business"
-                //              onChange={this.props.getInput}
-                ref={this.eMail}
               />
             </div>
             <div>
