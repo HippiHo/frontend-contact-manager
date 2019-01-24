@@ -22,11 +22,48 @@ class App extends Component {
       });
   };
 
+  handleFirstName = e => {
+    if (/^[a-zA-Z]+$/.test(e.target.value)) {
+      this.setState({ firstName: true });
+    } else {
+      this.setState({ firstName: false });
+    }
+  };
+
+  handleLastName = e => {
+    if (/^[a-zA-Z]+$/.test(e.target.value)) {
+      this.setState({ lastName: true });
+    } else {
+      this.setState({ lastName: false });
+    }
+  };
+
+  handleMobileNumber = e => {
+    if (/^[+]?[0-9]{6,20}$/.test(e.target.value)) {
+      this.setState({ mobile: true });
+    } else {
+      this.setState({ mobile: false });
+    }
+  };
+
+  handleMobileNumber = e => {
+    if (/^[+]?[0-9]{6,20}$/.test(e.target.value)) {
+      this.setState({ mobile: true });
+    } else {
+      this.setState({ mobile: false });
+    }
+  };
+
   render() {
     return (
       <div className="app container">
         <Header />
-        <Form />
+        <Form
+          form={this.state}
+          handleFirstName={this.handleFirstName}
+          handleLastName={this.handleLastName}
+          handleMobileNumber={this.handleMobileNumber}
+        />
       </div>
     );
   }

@@ -1,21 +1,6 @@
 import React, { Component } from "react";
 
 class Form extends Component {
-  firstName = React.createRef();
-  lastName = React.createRef();
-  eMail = React.createRef();
-  man = React.createRef();
-
-  handleChange = e => {
-    e.preventDefault();
-    let object = {
-      firstName: this.firstName.current.value,
-      lastName: this.lastName.current.value,
-      eMail: this.eMail.current.value,
-      [this.man.current.value]: this.man.current.checked
-    };
-  };
-
   /*
   handleSubmit = e => {
     e.preventDefault();
@@ -25,8 +10,6 @@ class Form extends Component {
       eMail: this.eMail.current.value,
       [this.man.current.value]: this.man.current.checked
     };
-
-  
 
     fetch("http://localhost:5000/contact", {
       method: "POST", // or 'PUT'
@@ -77,7 +60,12 @@ class Form extends Component {
               <label htmlFor="firstname">First name *</label>
               <input
                 type="text"
-                className="form-control"
+                onChange={this.props.handleFirstName}
+                className={
+                  this.props.form.firstName
+                    ? "form-control is-valid"
+                    : "form-control is-invalid"
+                }
                 placeholder="Your first name"
                 id="firstname"
               />
@@ -86,7 +74,12 @@ class Form extends Component {
               <label htmlFor="lastname">Last name</label>
               <input
                 type="text"
-                className="form-control"
+                onChange={this.props.handleLastName}
+                className={
+                  this.props.form.lastName
+                    ? "form-control is-valid"
+                    : "form-control is-invalid"
+                }
                 placeholder="Your last name"
                 id="lastname"
               />
@@ -105,8 +98,13 @@ class Form extends Component {
             <div className="col-4">
               <label htmlFor="mobile-number">Mobile number *</label>
               <input
-                type="tel"
-                className="form-control"
+                type="text"
+                onChange={this.props.handleMobileNumber}
+                className={
+                  this.props.form.mobile
+                    ? "form-control is-valid"
+                    : "form-control is-invalid"
+                }
                 placeholder="Mobile"
                 id="mobile-number"
               />
@@ -114,7 +112,7 @@ class Form extends Component {
             <div className="col-4">
               <label htmlFor="private-number">Private number</label>
               <input
-                type="tel"
+                type="text"
                 className="form-control"
                 placeholder="Private"
                 id="private-number"
@@ -123,7 +121,7 @@ class Form extends Component {
             <div className="col-4">
               <label htmlFor="business-number">Business number</label>
               <input
-                type="tel"
+                type="text"
                 className="form-control"
                 placeholder="Business"
                 id="business-number"
