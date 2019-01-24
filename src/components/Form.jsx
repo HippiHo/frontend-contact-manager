@@ -41,22 +41,22 @@ class Form extends Component {
       </div>
     ));
 
-    // Create a function on submit that reads the form fields and is performing a fetch post request to a post route on the server
     return (
       <div>
         <form className="mt-5" onSubmit={this.handleSubmit}>
+          <p className="text-danger">* Please fill in the required fields!</p>
           <h4>Name</h4>
           <div className="row">
-            <div className="col-2">
+            <div className="col-lg-2">
               <label htmlFor="firstname">Name Prefix</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Prefix"
+                placeholder="Dr."
                 id="firstname"
               />
             </div>
-            <div className="col-4">
+            <div className="col-lg-4">
               <label htmlFor="firstname">First name *</label>
               <input
                 type="text"
@@ -66,11 +66,11 @@ class Form extends Component {
                     ? "form-control is-valid"
                     : "form-control is-invalid"
                 }
-                placeholder="Your first name"
+                placeholder="Eva"
                 id="firstname"
               />
             </div>
-            <div className="col-5">
+            <div className="col-lg-5">
               <label htmlFor="lastname">Last name</label>
               <input
                 type="text"
@@ -80,22 +80,21 @@ class Form extends Component {
                     ? "form-control is-valid"
                     : "form-control is-invalid"
                 }
-                placeholder="Your last name"
+                placeholder="Müller"
                 id="lastname"
               />
             </div>
           </div>
           <h4>Organisation</h4>
-          <label htmlFor="organisation">Organisation name</label>
           <input
             type="text"
-            className="form-control"
-            placeholder="Organisation"
-            id="organisation"
+            className="form-control col-lg-5"
+            placeholder="World Health Organization"
+            id=""
           />
           <h4>Phone numbers</h4>
           <div className="row">
-            <div className="col-4">
+            <div className="col-lg-4">
               <label htmlFor="mobile-number">Mobile number *</label>
               <input
                 type="text"
@@ -105,58 +104,106 @@ class Form extends Component {
                     ? "form-control is-valid"
                     : "form-control is-invalid"
                 }
-                placeholder="Mobile"
+                placeholder="+12345678901234"
                 id="mobile-number"
               />
             </div>
-            <div className="col-4">
+            <div className="col-lg-4">
               <label htmlFor="private-number">Private number</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Private"
+                placeholder="+12345678901234"
                 id="private-number"
               />
             </div>
-            <div className="col-4">
+            <div className="col-lg-4">
               <label htmlFor="business-number">Business number</label>
               <input
                 type="text"
                 className="form-control"
-                placeholder="Business"
+                placeholder="+12345678901234"
                 id="business-number"
               />
             </div>
           </div>
           <h4>E-mail</h4>
           <div className="row mt-3">
-            <div className="col-6">
+            <div className="col-lg-6">
               <label htmlFor="private-email">Private email</label>
               <input
                 type="email"
                 className="form-control"
                 id="private-email"
                 aria-describedby="emailHelp"
-                placeholder="private"
+                placeholder="evamuller@gmail.de"
               />
             </div>
-            <div className="col-6">
+            <div className="col-lg-6">
               <label htmlFor="business-email">Business email</label>
               <input
                 type="email"
                 className="form-control"
                 id="business-email"
                 aria-describedby="emailHelp"
-                placeholder="business"
+                placeholder="evamuller@gmail.de"
               />
-            </div>
-            <div>
-              <h4>Languages *</h4>
-              <div className="row">{checkboxes}</div>
             </div>
           </div>
 
-          <button type="submit" className="btn btn-primary mt-3">
+          <h4>Address</h4>
+          <div className="row mt-3">
+            <div className="col-lg-4">
+              <label htmlFor="street">Street</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Mainroad 1"
+                id="street"
+              />
+            </div>
+            <div className="col-lg-4">
+              <label htmlFor="city">City</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="London"
+                id="city"
+              />
+            </div>
+            <div className="col-lg-4">
+              <label htmlFor="post-code">Post code</label>
+              <input
+                type="number"
+                className="form-control"
+                placeholder="123456"
+                id="post-code"
+              />
+            </div>
+          </div>
+
+          <h4>Birthday</h4>
+          <input
+            type="date"
+            className="form-control col-lg-5"
+            placeholder="mm/dd/yyyy"
+            id="birthday"
+          />
+
+          <h4>Relationship</h4>
+          <input
+            type="text"
+            className="form-control col-lg-5"
+            placeholder="Coworker"
+            id="relationship"
+          />
+
+          <div className="mb-3">
+            <h4>Languages *</h4>
+            <div className="d-flex">{checkboxes}</div>
+          </div>
+
+          <button type="submit" className="btn btn-primary d-flex m-auto">
             Save contact
           </button>
         </form>

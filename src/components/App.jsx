@@ -46,14 +46,6 @@ class App extends Component {
     }
   };
 
-  handleMobileNumber = e => {
-    if (/^[+]?[0-9]{6,20}$/.test(e.target.value)) {
-      this.setState({ mobile: true });
-    } else {
-      this.setState({ mobile: false });
-    }
-  };
-
   render() {
     return (
       <div className="app container">
