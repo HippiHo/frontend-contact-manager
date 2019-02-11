@@ -97,7 +97,7 @@ class Form extends Component {
     ));
 
     return (
-      <div>
+      <div className="form_style">
         <form className="mt-5" onSubmit={this.handleSubmit} noValidate={true}>
           <p className="text-danger">* Please fill in the required fields!</p>
           <h4>Name</h4>
