@@ -1,11 +1,12 @@
-import React, { Fragment } from "react";
+import React from "react";
 
 const Header = props => {
   return (
-    <Fragment>
+    <div className="header">
       <h1>Contact Manager</h1>
-      <h3>Organize your contacts</h3>
-    </Fragment>
+      <h3 className="header_end">Organize your contacts</h3>
+      <i class="fas fa-users fa-5x" />
+    </div>
   );
 };
 

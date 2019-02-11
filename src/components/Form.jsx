@@ -1,29 +1,83 @@
 import React, { Component } from "react";
 
 class Form extends Component {
-  /*
   handleSubmit = e => {
     e.preventDefault();
-    let object = {
-      firstName: this.firstName.current.value,
-      lastName: this.lastName.current.value,
-      eMail: this.eMail.current.value,
-      [this.man.current.value]: this.man.current.checked
-    };
-
-    fetch("http://localhost:5000/contact", {
-      method: "POST", // or 'PUT'
-      body: JSON.stringify(object), // data can be `string` or {object}!
+    // run isValid functions
+    fetch("http://localhost:4000/contacts", {
+      method: "POST",
       headers: {
         "Content-Type": "application/json"
-      }
+      },
+      body: JSON.stringify(this.props.input) // body data type must match "Content-Type" header
     })
-      .then(res => res.json())
+      .then(response => response.json())
       .then(response => console.log("Success:", response))
-      .catch(error => console.error("Error:", error));
+      .catch(error => console.error("Error:", error)); // parses response to JSON
   };
 
-  */
+  handleNameChange = e => {
+    if (e.target.value.length > 1) {
+      e.target.classList.add("is-valid");
+      this.props.setName(e.target);
+      this.checkIfInvalid(e.target);
+    } else {
+      this.checkIfValid(e.target);
+    }
+  };
+  handlePhoneChange = e => {
+    switch (e.target.id) {
+      case "phone_type":
+        this.props.setPhone(e.target);
+        e.target.classList.add("is-valid");
+        break;
+      case "phone_country_code":
+        if (e.target.value.match(/^\d{4}/)) {
+          e.target.classList.add("is-valid");
+          this.props.setPhone(e.target);
+          this.checkIfInvalid(e.target); // trigger invalid at first letter
+        } else {
+          this.checkIfValid(e.target);
+        }
+        break;
+      case "phone_number":
+        if (
+          e.target.value.match(/^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/)
+        ) {
+          e.target.classList.add("is-valid");
+          this.props.setPhone(e.target);
+          this.checkIfInvalid(e.target); // trigger invalid at first letter
+        } else {
+          this.checkIfValid(e.target);
+        }
+        break;
+      default:
+        console.log("try again");
+    }
+    // what's the best method to check & validate phone entries, incl. country code?
+  };
+  checkIfInvalid = element => {
+    if (this.props.validation[element.name] === false) {
+      this.props.setValidation(element, true);
+      this.toggleValidationClass(element);
+      // disable submit
+    }
+  };
+  checkIfValid = element => {
+    if (this.props.validation[element.name] === true) {
+      this.props.setValidation(element, false);
+      this.toggleValidationClass(element);
+    }
+  };
+  toggleValidationClass = element => {
+    if (element.classList.contains("is-invalid")) {
+      element.classList.add("is-valid");
+      element.classList.remove("is-invalid"); // make it a toggle?
+    } else {
+      element.classList.add("is-invalid");
+      element.classList.remove("is-valid");
+    }
+  };
 
   render() {
     const languages = ["en", "de", "fr", "he", "ar", "es", "tr", "pl", "gr"];
@@ -34,6 +88,7 @@ class Form extends Component {
           className="form-check-input"
           id={lang}
           name={lang}
+          required
         />
         <label className="form-check-label mr-3" htmlFor={lang}>
           {lang}
@@ -43,46 +98,63 @@ class Form extends Component {
 
     return (
       <div>
-        <form className="mt-5" onSubmit={this.handleSubmit}>
+        <form className="mt-5" onSubmit={this.handleSubmit} noValidate={true}>
           <p className="text-danger">* Please fill in the required fields!</p>
           <h4>Name</h4>
           <div className="row">
             <div className="col-lg-2">
-              <label htmlFor="firstname">Name Prefix</label>
+              <label htmlFor="name_prefix">Name Prefix</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="Dr."
-                id="firstname"
+                id="name_prefix"
+                name="name_prefix"
               />
             </div>
             <div className="col-lg-4">
-              <label htmlFor="firstname">First name *</label>
+              <label htmlFor="first_name">First name *</label>
               <input
                 type="text"
-                onChange={this.props.handleFirstName}
-                className={
-                  this.props.form.firstName
-                    ? "form-control is-valid"
-                    : "form-control is-invalid"
-                }
                 placeholder="Eva"
-                id="firstname"
+                id="first_name"
+                name="first_name"
+                // onChange={this.props.handleFirstName}
+                // className={
+                //   this.props.form.first_name
+                //     ? "form-control is-valid"
+                //     : "form-control is-invalid"
+                // }
+                className="form-control"
+                onChange={this.handleNameChange}
+                required
+                autoFocus
               />
+              <div className="valid-feedback">Looks good!</div>
+              <div className="invalid-feedback">
+                Please provide a first name.
+              </div>
             </div>
             <div className="col-lg-5">
-              <label htmlFor="lastname">Last name</label>
+              <label htmlFor="last_name">Last name</label>
               <input
                 type="text"
-                onChange={this.props.handleLastName}
-                className={
-                  this.props.form.lastName
-                    ? "form-control is-valid"
-                    : "form-control is-invalid"
-                }
                 placeholder="Müller"
-                id="lastname"
+                id="last_name"
+                name="last_name"
+                // onChange={this.props.handleLastName}
+                // className={
+                //   this.props.form.last_name
+                //     ? "form-control is-valid"
+                //     : "form-control is-invalid"
+                // }
+                className="form-control"
+                onChange={this.handleNameChange}
               />
+              <div className="valid-feedback">Looks good!</div>
+              <div className="invalid-feedback">
+                Please provide a last name.
+              </div>
             </div>
           </div>
           <h4>Organisation</h4>
@@ -90,61 +162,74 @@ class Form extends Component {
             type="text"
             className="form-control col-lg-5"
             placeholder="World Health Organization"
-            id=""
+            id="organisation"
+            name="organisation"
           />
           <h4>Phone numbers</h4>
-          <div className="row">
+          <div className="row" onChange={this.handlePhoneChange}>
             <div className="col-lg-4">
-              <label htmlFor="mobile-number">Mobile number *</label>
+              <label htmlFor="mobile_phone_number">Mobile number *</label>
               <input
                 type="text"
-                onChange={this.props.handleMobileNumber}
-                className={
-                  this.props.form.mobile
-                    ? "form-control is-valid"
-                    : "form-control is-invalid"
-                }
                 placeholder="+12345678901234"
-                id="mobile-number"
+                id="mobile_phone_number"
+                name="mobile_phone_number"
+                // onChange={this.props.handleMobileNumber}
+                // className={
+                //   this.props.form.mobile
+                //     ? "form-control is-valid"
+                //     : "form-control is-invalid"
+                // }
+                className="form-control"
+                pattern="[+][0-9]{2}[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                required
               />
             </div>
             <div className="col-lg-4">
-              <label htmlFor="private-number">Private number</label>
+              <label htmlFor="private_phone_number">Private number</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="+12345678901234"
-                id="private-number"
+                id="private_phone_number"
+                name="private_phone_number"
               />
             </div>
             <div className="col-lg-4">
-              <label htmlFor="business-number">Business number</label>
+              <label htmlFor="business_phone_number">Business number</label>
               <input
                 type="text"
                 className="form-control"
                 placeholder="+12345678901234"
-                id="business-number"
+                id="business_phone_number"
+                name="business_phone_number"
               />
             </div>
           </div>
           <h4>E-mail</h4>
           <div className="row mt-3">
             <div className="col-lg-6">
-              <label htmlFor="private-email">Private email</label>
+              <label htmlFor="private_email">Private email</label>
               <input
                 type="email"
                 className="form-control"
-                id="private-email"
+                id="private_email"
+                name="private_email"
+                pattern=".+@."
+                size="30"
                 aria-describedby="emailHelp"
                 placeholder="evamuller@gmail.de"
               />
             </div>
             <div className="col-lg-6">
-              <label htmlFor="business-email">Business email</label>
+              <label htmlFor="business_email">Business email</label>
               <input
                 type="email"
                 className="form-control"
-                id="business-email"
+                id="business_email"
+                name="business_email"
+                pattern=".+@."
+                size="30"
                 aria-describedby="emailHelp"
                 placeholder="evamuller@gmail.de"
               />
@@ -160,6 +245,7 @@ class Form extends Component {
                 className="form-control"
                 placeholder="Mainroad 1"
                 id="street"
+                name="street"
               />
             </div>
             <div className="col-lg-4">
@@ -169,15 +255,17 @@ class Form extends Component {
                 className="form-control"
                 placeholder="London"
                 id="city"
+                name="city"
               />
             </div>
             <div className="col-lg-4">
-              <label htmlFor="post-code">Post code</label>
+              <label htmlFor="post_code">Post code</label>
               <input
                 type="number"
                 className="form-control"
                 placeholder="123456"
-                id="post-code"
+                id="post_code"
+                name="post_code"
               />
             </div>
           </div>
@@ -188,6 +276,7 @@ class Form extends Component {
             className="form-control col-lg-5"
             placeholder="mm/dd/yyyy"
             id="birthday"
+            name="birthday"
           />
 
           <h4>Relationship</h4>
@@ -196,6 +285,7 @@ class Form extends Component {
             className="form-control col-lg-5"
             placeholder="Coworker"
             id="relationship"
+            name="relationship"
           />
 
           <div className="mb-3">

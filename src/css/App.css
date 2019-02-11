@@ -1,6 +1,9 @@
 .app {
   margin-top: 2rem;
   margin-bottom: 2rem;
+  background-color: #c9f585;
+  padding: 1rem;
+  border-radius: 4px;
 }
 
 h4 {
@@ -10,4 +13,17 @@ h4 {
 
 button {
   margin-top: 3rem;
+}
+
+.header {
+  text-align: center;
+  border-bottom: solid black 2px;
+}
+
+.header_end {
+  padding-bottom: 1rem;
+}
+
+.fa-users {
+  padding-bottom: 1rem;
 }
