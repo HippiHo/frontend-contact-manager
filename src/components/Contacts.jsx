@@ -16,24 +16,40 @@ class Contacts extends Component {
                   <div className="contact mr-5">
                     <h4>
                       <i className="fas fa-user" />
-                      &nbsp;&nbsp; {contact.person.name.name_prefix}&nbsp;
-                      {contact.person.name.first_name}&nbsp;
-                      {contact.person.name.last_name}&nbsp;
-                      {contact.organisation}
+                      &nbsp;&nbsp; {contact.name.name_prefix}&nbsp;
+                      {contact.name.first_name}&nbsp;
+                      {contact.name.last_name}
                     </h4>
+                    <h5>Organisation: {contact.organisation}</h5>
                     <ul>
-                      <li>Birthday: {contact.person.birthday}</li>
-                      <li>Relationship: {contact.person.relationship}</li>
+                      <li>Birthday: {contact.birthday}</li>
+                      <li>Relationship: {contact.relationship}</li>
                     </ul>
-                    {/* <p>Address: {contact.address.street}<br>{contact.address.post_code} {contact.address.city}</p> */}
-                    <p>Mobile phone number: {contact.phone_number.mobile}</p>
-                    <p>Private phone number: {contact.phone_number.private}</p>
                     <p>
-                      Business phone number: {contact.phone_number.business}
+                      <b>Address:</b> {contact.address.street}
+                      <br />
+                      {contact.address.post_code} {contact.address.city}
                     </p>
-                    {/* <p>Private E-mail: {contact.email.private}</p>
-                    <p>Business E-mail: {contact.email.business}</p> */}
-                    <p>Language: {contact.languages}</p>
+                    <p>
+                      <b>Mobile phone number:</b> {contact.phone_number.mobile}
+                    </p>
+                    <p>
+                      <b>Private phone number:</b>{" "}
+                      {contact.phone_number.private}
+                    </p>
+                    <p>
+                      <b>Business phone number:</b>{" "}
+                      {contact.phone_number.business}
+                    </p>
+                    <p>
+                      <b>Private E-mail:</b> {contact.email.private}
+                    </p>
+                    <p>
+                      <b>Business E-mail:</b> {contact.email.business}
+                    </p>
+                    <p>
+                      <b>Languages:</b> {contact.languages}
+                    </p>
                   </div>
                 ))}
             </div>
