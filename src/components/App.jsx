@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "../css/App.css";
 import Header from "./Header";
 import Form from "./Form";
+import Contacts from "./Contacts";
 
 class App extends Component {
   constructor(props) {
@@ -96,6 +97,7 @@ class App extends Component {
           // handleMobileNumber={this.handleMobileNumber}
           // handleSubmit={this.handleSubmit}
         />
+        <Contacts contacts={this.state.contacts} />
       </div>
     );
   }
