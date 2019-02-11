@@ -30,9 +30,25 @@ button {
 
 .form_style {
   margin-left: 2rem;
+  margin-bottom: 3rem;
+  padding-bottom: 2rem;
+  border-bottom: solid black 2px;
+}
+
+#contacts {
+  text-align: center;
   margin-bottom: 2rem;
 }
 
-.card-title {
+.card {
+  margin: auto;
+}
+
+.person {
+  border-bottom: solid black 1px;
+}
+
+.person,
+.address {
   text-align: center;
 }
