@@ -3,16 +3,43 @@ import React, { Component } from "react";
 class Form extends Component {
   handleSubmit = e => {
     e.preventDefault();
+
+    const contact = this.props.input.contact;
+    const input = {
+      name: {
+        name_prefix: contact.name_prefix,
+        first_name: contact.first_name,
+        last_name: contact.last_name
+      },
+      organisation: contact.organisation,
+      address: {
+        street: contact.street,
+        post_code: contact.post_code,
+        city: contact.city
+      },
+      phone_number: {
+        mobile: contact.mobile_phone_number,
+        private: contact.private_phone_number,
+        business: contact.business_phone_number
+      },
+      email: {
+        private: contact.private_email,
+        business: contact.business_email
+      },
+      languages: contact.languages,
+      birthday: contact.birthday,
+      relationship: contact.relationship
+    };
     // run isValid functions
     fetch("http://localhost:4000/contacts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(this.props.input) // body data type must match "Content-Type" header
+      body: JSON.stringify(input) // body data type must match "Content-Type" header
     })
       .then(response => response.json())
-      .then(response => console.log("Success:", response))
+      .then(response => console.log("Success:", JSON.stringify(response)))
       .catch(error => console.error("Error:", error)); // parses response to JSON
   };
 
@@ -25,37 +52,7 @@ class Form extends Component {
       this.checkIfValid(e.target);
     }
   };
-  handlePhoneChange = e => {
-    switch (e.target.id) {
-      case "phone_type":
-        this.props.setPhone(e.target);
-        e.target.classList.add("is-valid");
-        break;
-      case "phone_country_code":
-        if (e.target.value.match(/^\d{4}/)) {
-          e.target.classList.add("is-valid");
-          this.props.setPhone(e.target);
-          this.checkIfInvalid(e.target); // trigger invalid at first letter
-        } else {
-          this.checkIfValid(e.target);
-        }
-        break;
-      case "phone_number":
-        if (
-          e.target.value.match(/^([a-z0-9_.-]+)@([\da-z.-]+)\.([a-z.]{2,6})$/)
-        ) {
-          e.target.classList.add("is-valid");
-          this.props.setPhone(e.target);
-          this.checkIfInvalid(e.target); // trigger invalid at first letter
-        } else {
-          this.checkIfValid(e.target);
-        }
-        break;
-      default:
-        console.log("try again");
-    }
-    // what's the best method to check & validate phone entries, incl. country code?
-  };
+
   checkIfInvalid = element => {
     if (this.props.validation[element.name] === false) {
       this.props.setValidation(element, true);
@@ -84,11 +81,13 @@ class Form extends Component {
     const checkboxes = languages.map(lang => (
       <div className="form-group form-check">
         <input
-          type="checkbox"
+          type="radio"
           className="form-check-input"
           id={lang}
-          name={lang}
+          name="languages"
+          value={lang}
           required
+          onChange={this.handleNameChange}
         />
         <label className="form-check-label mr-3" htmlFor={lang}>
           {lang}
@@ -110,6 +109,7 @@ class Form extends Component {
                 placeholder="Dr."
                 id="name_prefix"
                 name="name_prefix"
+                onChange={this.handleNameChange}
               />
             </div>
             <div className="col-lg-4">
@@ -166,7 +166,7 @@ class Form extends Component {
             name="organisation"
           />
           <h4>Phone numbers</h4>
-          <div className="row" onChange={this.handlePhoneChange}>
+          <div className="row">
             <div className="col-lg-4">
               <label htmlFor="mobile_phone_number">Mobile number *</label>
               <input
@@ -181,6 +181,7 @@ class Form extends Component {
                 //     : "form-control is-invalid"
                 // }
                 className="form-control"
+                onChange={this.handleNameChange}
                 pattern="[+][0-9]{2}[0-9]{3}-[0-9]{3}-[0-9]{4}"
                 required
               />
@@ -192,6 +193,7 @@ class Form extends Component {
                 className="form-control"
                 placeholder="+12345678901234"
                 id="private_phone_number"
+                onChange={this.handleNameChange}
                 name="private_phone_number"
               />
             </div>
@@ -202,6 +204,7 @@ class Form extends Component {
                 className="form-control"
                 placeholder="+12345678901234"
                 id="business_phone_number"
+                onChange={this.handleNameChange}
                 name="business_phone_number"
               />
             </div>
@@ -218,6 +221,7 @@ class Form extends Component {
                 pattern=".+@."
                 size="30"
                 aria-describedby="emailHelp"
+                onChange={this.handleNameChange}
                 placeholder="evamuller@gmail.de"
               />
             </div>
@@ -230,6 +234,7 @@ class Form extends Component {
                 name="business_email"
                 pattern=".+@."
                 size="30"
+                onChange={this.handleNameChange}
                 aria-describedby="emailHelp"
                 placeholder="evamuller@gmail.de"
               />
@@ -246,6 +251,7 @@ class Form extends Component {
                 placeholder="Mainroad 1"
                 id="street"
                 name="street"
+                onChange={this.handleNameChange}
               />
             </div>
             <div className="col-lg-4">
@@ -256,6 +262,7 @@ class Form extends Component {
                 placeholder="London"
                 id="city"
                 name="city"
+                onChange={this.handleNameChange}
               />
             </div>
             <div className="col-lg-4">
@@ -266,6 +273,7 @@ class Form extends Component {
                 placeholder="123456"
                 id="post_code"
                 name="post_code"
+                onChange={this.handleNameChange}
               />
             </div>
           </div>
@@ -277,6 +285,7 @@ class Form extends Component {
             placeholder="mm/dd/yyyy"
             id="birthday"
             name="birthday"
+            onChange={this.handleNameChange}
           />
 
           <h4>Relationship</h4>
@@ -286,6 +295,7 @@ class Form extends Component {
             placeholder="Coworker"
             id="relationship"
             name="relationship"
+            onChange={this.handleNameChange}
           />
 
           <div className="mb-3">

@@ -7,10 +7,10 @@ class Contacts extends Component {
         <h2 id="contacts">My contacts</h2>
         <div className="row">
           {/* How to make it a row? */}
-          <div className="col-lg-6 card">
-            {this.props.contacts &&
-              this.props.contacts.map((contact, _id) => (
-                <div className="contact mx-auto">
+          {this.props.contacts &&
+            this.props.contacts.map((contact, _id) => (
+              <div className="col-md-4 mb-3">
+                <div className="contact card p-3">
                   <h4 className="person">
                     <i className="fas fa-user" />
                     &nbsp;&nbsp; {contact.name.name_prefix}&nbsp;
@@ -63,8 +63,8 @@ class Contacts extends Component {
                     </li>
                   </ul>
                 </div>
-              ))}
-          </div>
+              </div>
+            ))}
         </div>
       </div>
     );
